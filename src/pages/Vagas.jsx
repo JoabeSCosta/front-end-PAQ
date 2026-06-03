@@ -59,7 +59,9 @@ function Vagas() {
 
         if (ativo) setVagas(data)
       } catch {
-        if (ativo) setError('Não foi possível carregar as vagas no momento.')
+        if (ativo) setError(<div className='min-h-screen bg-slate-200 pb-10 flex justify-center items-center'>
+          <p>'Não foi possível carregar as vagas no momento.'</p>
+        </div>)
       } finally {
         if (ativo) setLoading(false)
       }
