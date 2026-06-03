@@ -9,13 +9,6 @@ function Header() {
         </Link>
       </div>
 
-      <div className='flex items-center gap-2 text-sm'>
-        <span className='hidden text-slate-400 sm:inline'>Home</span>
-        <span className='hidden text-slate-400 sm:inline'>Sobre</span>
-        <span className='hidden text-slate-400 sm:inline'>Contato</span>
-      
-      </div>
-
       <div>
           <Link
           to='/login'

@@ -5,12 +5,12 @@
 // Se o backend evoluir para suporte a query params (busca/paginação), aqui
 // é um bom lugar para centralizar esses padrões.
 export const apiRoutes = {
-  // URL base para o cliente HTTP
-  baseURL: '/api',
+  // URL base do backend publicado
+  baseURL: 'https://prototipando-a-quebrada-paq-production.up.railway.app',
 
   // Endpoint para listar todas as vagas
-  vagasList: '/buscar-vagas',
+  vagasList: '/vaga',
 
   // Base para pegar uma vaga por id (usado como `${vagaByIdBase}/${id}`)
-  vagaByIdBase: '/buscar-vagas',
+  vagaByIdBase: '/vaga',
 }
