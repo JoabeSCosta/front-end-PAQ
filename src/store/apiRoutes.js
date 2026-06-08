@@ -7,8 +7,12 @@
 export const apiRoutes = {
   // URL base do backend por ambiente.
   // No desenvolvimento, o Vite proxy usa `/api` para evitar CORS.
-  // Em produção, defina `VITE_API_BASE_URL` com a URL final do backend.
-  baseURL: import.meta.env.VITE_API_BASE_URL || '/api',
+  // Em produção, usamos a URL direta do backend porque o Netlify não aplica o proxy do Vite.
+  baseURL:
+    import.meta.env.VITE_API_BASE_URL ||
+    (import.meta.env.DEV
+      ? '/api'
+      : 'https://prototipando-a-quebrada-paq-production.up.railway.app'),
 
   // Endpoints de vagas no banco de dados
   vagasList: '/vaga/',
