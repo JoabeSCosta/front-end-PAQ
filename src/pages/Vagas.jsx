@@ -7,6 +7,8 @@
 //  - lógica de filtragem e paginação (client-side)
 //  - renderização da grade de vagas e componentes auxiliares
 import { useEffect, useState } from 'react'
+import Hero from '../components/home/Hero'
+import HowItWorks from '../components/home/HowItWorks'
 import JobCard from '../components/JobCard'
 import Pagination from '../components/Pagination'
 import SearchInput from '../components/SearchInput'
@@ -86,33 +88,57 @@ function Vagas() {
 
   // JSX: composição da página com SearchInput, grade e paginação
   return (
-    <div className='min-h-screen bg-slate-200 pb-10'>
-      <SearchInput value={searchTerm} onChange={handleSearchChange} />
+    <div className='min-h-screen bg-white pb-10'>
+      {/* Hero principal da página */}
+      <Hero />
 
-      <div className='mx-auto grid max-w-6xl gap-4 px-4 sm:grid-cols-2 lg:grid-cols-3'>
-        {vagasDaPagina.map((job) => {
-          const jobId = String(job._id ?? job.id_vaga_external)
+      {/* Explicação rápida de como a plataforma funciona */}
+      <HowItWorks />
 
-          return (
-            <JobCard
-              key={jobId}
-              id={jobId}
-              title={job.title || job.name}
-              company={job.company}
-              location={job.location}
-              description={job.description}
-            />
-          )
-        })}
-      </div>
+      {/* Seção da listagem de vagas */}
+      <section id='vagas' className='bg-slate-200 py-12 scroll-mt-24'>
+        <div className='mx-auto max-w-7xl px-4 sm:px-6 lg:px-8'>
+          <div className='mx-auto max-w-3xl text-center'>
+            <h2 className='text-balance text-2xl font-bold text-slate-900 md:text-3xl'>
+              Vagas disponíveis
+            </h2>
+            <p className='text-pretty mt-3 text-sm text-slate-600 md:text-base'>
+              Use a busca abaixo para filtrar as oportunidades que mais combinam com o seu perfil.
+            </p>
+          </div>
 
-      {vagasFiltradas.length === 0 && (
-        <p className='mx-auto mt-10 max-w-6xl px-4 text-center text-sm text-slate-600'>
-          Nenhuma vaga encontrada com esse filtro.
-        </p>
-      )}
+          <div className='mt-8'>
+            <SearchInput value={searchTerm} onChange={handleSearchChange} />
+          </div>
 
-      <Pagination currentPage={paginaAtual} totalPages={totalPages} onPageChange={setCurrentPage} />
+          <div className='mx-auto mt-8 grid max-w-6xl gap-4 sm:grid-cols-2 lg:grid-cols-3'>
+            {vagasDaPagina.map((job) => {
+              const jobId = String(job._id ?? job.id_vaga_external)
+
+              return (
+                <JobCard
+                  key={jobId}
+                  id={jobId}
+                  title={job.title || job.name}
+                  company={job.company}
+                  location={job.location}
+                  description={job.description}
+                />
+              )
+            })}
+          </div>
+
+          {vagasFiltradas.length === 0 && (
+            <p className='mx-auto mt-10 max-w-6xl text-center text-sm text-slate-600'>
+              Nenhuma vaga encontrada com esse filtro.
+            </p>
+          )}
+
+          <div className='mt-10'>
+            <Pagination currentPage={paginaAtual} totalPages={totalPages} onPageChange={setCurrentPage} />
+          </div>
+        </div>
+      </section>
     </div>
   )
 }
