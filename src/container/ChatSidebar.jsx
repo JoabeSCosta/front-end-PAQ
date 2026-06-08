@@ -5,6 +5,7 @@
 // - overlay com painel que contém `AiChat` quando aberto
 import { useEffect, useRef, useState } from 'react'
 import { MessageCircle, X, Bot, Loader2, Send, User } from 'lucide-react'
+import { converseWithChatbot } from '../services/vagasApi'
 
 // ChatSidebar agora contém TODO o chat (sem arquivo separado).
 // Mudanças principais:
@@ -39,19 +40,38 @@ function ChatSidebar() {
     const value = text.trim()
     if (!value || isLoading) return
 
+    const historicoAtual = [...messages, { id: crypto.randomUUID(), role: 'user', text: value }]
+
     setIsLoading(true)
-    setMessages((current) => [
-      ...current,
-      { id: crypto.randomUUID(), role: 'user', text: value },
-    ])
-    // Simulação: responde após breve timeout
-    setTimeout(() => {
-      setMessages((current) => [
-        ...current,
-        { id: crypto.randomUUID(), role: 'assistant', text: 'Legal — conta mais sobre sua experiência.' },
-      ])
-      setIsLoading(false)
-    }, 800)
+    setMessages(historicoAtual)
+
+    // Faz a conversa com o backend e adiciona a resposta do chatbot.
+    converseWithChatbot(value, historicoAtual)
+      .then((reply) => {
+        const replyText = typeof reply === 'string' ? reply : 'Recebi sua mensagem, mas não consegui interpretar a resposta.'
+
+        setMessages((current) => [
+          ...current,
+          {
+            id: crypto.randomUUID(),
+            role: 'assistant',
+            text: replyText,
+          },
+        ])
+      })
+      .catch(() => {
+        setMessages((current) => [
+          ...current,
+          {
+            id: crypto.randomUUID(),
+            role: 'assistant',
+            text: 'Não consegui me conectar ao chatbot no momento.',
+          },
+        ])
+      })
+      .finally(() => {
+        setIsLoading(false)
+      })
   }
 
   function handleSubmit(e) {

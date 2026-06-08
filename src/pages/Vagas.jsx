@@ -81,7 +81,7 @@ function Vagas() {
   }
 
   // Renderizações simples para loading/erro
-  if (loading) return <div>Carregando vagas...</div>
+  if (loading) return <div className='min-h-screen bg-slate-200 pb-10 flex justify-center items-center'>Carregando vagas...</div>
   if (error) return <div>{error}</div>
 
   // JSX: composição da página com SearchInput, grade e paginação
