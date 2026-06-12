@@ -25,31 +25,18 @@ function Vagas() {
   const [searchTerm, setSearchTerm] = useState('')
 
   const itemsPerPage = 6
-  const searchTermNormalizado = searchTerm.trim().toLowerCase()
 
-  // Filtragem client-side: procura por título, nome, empresa, local ou descrição
-  const vagasFiltradas = vagas.filter((vaga) => {
-    if (!searchTermNormalizado) return true
-
-    const textoBase = [vaga.title, vaga.name, vaga.company, vaga.location, vaga.description]
-      .filter(Boolean)
-      .join(' ')
-      .toLowerCase()
-
-    return textoBase.includes(searchTermNormalizado)
-  })
-
-  // Cálculo de páginas a partir dos resultados filtrados
-  const totalPages = Math.ceil(vagasFiltradas.length / itemsPerPage)
+  // Cálculo de páginas a partir dos resultados retornados pelo backend
+  const totalPages = Math.ceil(vagas.length / itemsPerPage)
   const paginaAtual = totalPages === 0 ? 1 : Math.min(currentPage, totalPages)
 
   // Fatia os resultados para a página atual
-  const vagasDaPagina = vagasFiltradas.slice(
+  const vagasDaPagina = vagas.slice(
     (paginaAtual - 1) * itemsPerPage,
     paginaAtual * itemsPerPage,
   )
 
-  // Efeito: carregar vagas na montagem do componente
+  // Efeito: carregar vagas quando o termo de busca muda
   useEffect(() => {
     let ativo = true
 
@@ -57,7 +44,7 @@ function Vagas() {
       try {
         setLoading(true)
         setError('')
-        const data = await getVagas()
+        const data = await getVagas(searchTerm)
 
         if (ativo) setVagas(data)
       } catch {
@@ -74,7 +61,7 @@ function Vagas() {
     return () => {
       ativo = false
     }
-  }, [])
+  }, [searchTerm])
 
   // Handler: atualiza o termo de pesquisa e reseta a página para 1
   function handleSearchChange(valor) {
@@ -128,7 +115,7 @@ function Vagas() {
             })}
           </div>
 
-          {vagasFiltradas.length === 0 && (
+          {vagas.length === 0 && (
             <p className='mx-auto mt-10 max-w-6xl text-center text-sm text-slate-600'>
               Nenhuma vaga encontrada com esse filtro.
             </p>

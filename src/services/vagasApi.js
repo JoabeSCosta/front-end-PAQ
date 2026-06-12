@@ -34,10 +34,12 @@ export async function createVaga(payload) {
   return response.data
 }
 
-export async function getVagas() {
-  // Retorna a lista completa de vagas (o backend atual entrega tudo em uma rota).
+export async function getVagas(searchTerm = '') {
+  // Retorna a lista de vagas, com busca opcional feita pelo backend.
   const api = createApiClient()
-  const response = await api.get(apiRoutes.vagasList)
+  const response = await api.get(apiRoutes.vagasList, {
+    params: searchTerm ? { search: searchTerm.trim() } : {},
+  })
   return response.data
 }
 
