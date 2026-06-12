@@ -1,7 +1,7 @@
 // Arquivo: SearchInput.jsx
 // Propósito: input controlado para pesquisa local na lista de vagas.
 // Recebe `value` e `onChange` para permitir controle completo pela página pai.
-function SearchInput({ value, onChange, placeholder = 'Buscar vagas por cargo, empresa ou local', label = 'Pesquisar vagas' }) {
+function SearchInput({ value, onChange, placeholder = 'Buscar vagas por cargo, empresa ou local', }) {
   // Campo controlado: não mantém estado interno, delega a responsabilidade ao pai.
   return (
     <label className='mx-auto mb-6 block max-w-6xl px-4'>
