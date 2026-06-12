@@ -62,17 +62,16 @@ export async function getVagasAdzuna() {
   return response.data
 }
 
-export async function converseWithChatbot(message, history = []) {
-  // Envia a mensagem do usuário para o chatbot e devolve a resposta normalizada.
+export async function converseWithChatbot(input, history = []) {
+  // Envia apenas um único payload ao backend: { input, history }
+  // `history` é formatado para o shape esperado ({ role, content }).
   const api = createApiClient()
-  const response = await api.post(apiRoutes.chatConverse, {
-    message,
+  const payload = {
+    input,
     history: formatarHistoricoConversa(history),
-    messages: formatarHistoricoConversa(history),
-    conversation: formatarHistoricoConversa(history),
-    prompt: message,
-    input: message,
-  })
+  }
+
+  const response = await api.post(apiRoutes.chatConverse, payload)
 
   return extrairPayloadResposta(response)
 }

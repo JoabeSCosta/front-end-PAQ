@@ -7,13 +7,6 @@ import { useEffect, useRef, useState } from 'react'
 import { MessageCircle, X, Bot, Loader2, Send, User } from 'lucide-react'
 import { converseWithChatbot } from '../services/vagasApi'
 
-// ChatSidebar agora contém TODO o chat (sem arquivo separado).
-// Mudanças principais:
-// - Removida a coluna "Como usar" (lado esquerdo)
-// - Removido cabeçalho branco; mantido cabeçalho preto interno
-// - Botão de abrir/fechar usa estilo preto consistente
-// - Mantemos o painel com largura máxima (não cobre a tela inteira)
-
 const initialMessages = [
   {
     id: 'welcome',
@@ -39,14 +32,13 @@ function ChatSidebar() {
   function sendMessage(text) {
     const value = text.trim()
     if (!value || isLoading) return
-
-    const historicoAtual = [...messages, { id: crypto.randomUUID(), role: 'user', text: value }]
+    const historyToSend = [...messages, { id: crypto.randomUUID(), role: 'user', text: value }]
 
     setIsLoading(true)
-    setMessages(historicoAtual)
+    setMessages(historyToSend)
 
-    // Faz a conversa com o backend e adiciona a resposta do chatbot.
-    converseWithChatbot(value, historicoAtual)
+    // Faz a conversa com o backend e envia apenas `{ input, history }`.
+    converseWithChatbot(value, historyToSend)
       .then((reply) => {
         const replyText = typeof reply === 'string' ? reply : 'Recebi sua mensagem, mas não consegui interpretar a resposta.'
 
