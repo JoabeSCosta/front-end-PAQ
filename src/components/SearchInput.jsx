@@ -4,8 +4,8 @@
 function SearchInput({ value, onChange, placeholder = 'Buscar vagas por cargo, empresa ou local', }) {
   // Campo controlado: não mantém estado interno, delega a responsabilidade ao pai.
   return (
-    <label className='mx-auto mb-6 block max-w-6xl px-4'>
-      <span className='mb-2 block text-sm font-semibold text-slate-700'>{label}</span>
+    // <label className='mx-auto mb-6 block max-w-6xl px-4'>
+    //   <span className='mb-2 block text-sm font-semibold text-slate-700'></span>
       <input
         type='search'
         value={value}
