@@ -124,9 +124,20 @@ function JobDetail() {
             </div>
           </div>
 
+          {job.redirect_url && (
+            <a
+              href={job.redirect_url}
+              target='_blank'
+              rel='noopener noreferrer'
+              className='mt-6 block w-full rounded-lg bg-green-600 py-3 text-center font-semibold text-white transition hover:bg-green-700'
+            >
+              Candidatar-se
+            </a>
+          )}
+
           <Link
             to='/'
-            className='mt-6 block w-full rounded-lg border border-slate-300 py-3 text-center font-semibold text-slate-700 hover:bg-slate-100'
+            className='mt-3 block w-full rounded-lg border border-slate-300 py-3 text-center font-semibold text-slate-700 hover:bg-slate-100'
           >
             Voltar para listagem
           </Link>

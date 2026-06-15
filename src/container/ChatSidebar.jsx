@@ -135,8 +135,8 @@ function ChatSidebar() {
                       className={`max-w-[80%] rounded-3xl px-4 py-3 text-sm leading-6 shadow-sm ${
                         message.role === 'user' ? 'bg-slate-900 text-white' : 'border border-sky-100 bg-sky-50 text-slate-800'
                       }`}
+                      dangerouslySetInnerHTML={{__html:message.text}}
                     >
-                      {message.text}
                     </div>
 
                     {message.role === 'user' && (

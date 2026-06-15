@@ -63,8 +63,8 @@ function Vagas() {
     }
   }, [searchTerm])
 
-  // Handler: atualiza o termo de pesquisa e reseta a página para 1
-  function handleSearchChange(valor) {
+  // Handler: atualiza o termo de pesquisa e reseta a página para 1 (acionado pelo botão ou Enter)
+  function handleSearch(valor) {
     setSearchTerm(valor)
     setCurrentPage(1)
   }
@@ -95,7 +95,7 @@ function Vagas() {
           </div>
 
           <div className='mt-8'>
-            <SearchInput value={searchTerm} onChange={handleSearchChange} />
+            <SearchInput onSearch={handleSearch} />
           </div>
 
           <div className='mx-auto mt-8 grid max-w-6xl gap-4 sm:grid-cols-2 lg:grid-cols-3'>
@@ -119,7 +119,7 @@ function Vagas() {
             <p className='mx-auto mt-10 max-w-6xl text-center text-sm text-slate-600'>
               Nenhuma vaga encontrada com esse filtro.
             </p>
-          )}
+          )}  
 
           <div className='mt-10'>
             <Pagination currentPage={paginaAtual} totalPages={totalPages} onPageChange={setCurrentPage} />
