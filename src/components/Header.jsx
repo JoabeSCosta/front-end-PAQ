@@ -6,7 +6,7 @@ function Header() {
       {/* Área esquerda: logo */}
       <div className='flex items-center gap-2'>
         <Link to='/' className='text-sm font-bold tracking-[0.24em] uppercase text-sky-200'>
-          <img src="PaqJobsLogo.png" alt="PaqJobsLogo" className='h-14 w-14 object-contain' />
+          <img src="https://prototipandoaquebrada.netlify.app/PaqJobsLogo.png" alt="PaqJobsLogo" className='h-14 w-14 object-contain' />
         </Link>
       </div>
 
