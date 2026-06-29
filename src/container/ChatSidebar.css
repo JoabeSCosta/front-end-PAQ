@@ -1,0 +1,155 @@
+/* Estilos para o componente ChatSidebar */
+
+/* Formatação geral das mensagens de chat */
+.chat-message-content {
+  line-height: 1.6;
+  word-wrap: break-word;
+}
+
+/* Estilo para títulos/cabeçalhos dentro das respostas */
+.chat-message-content h1,
+.chat-message-content h2,
+.chat-message-content h3,
+.chat-message-content h4,
+.chat-message-content h5,
+.chat-message-content h6 {
+  font-weight: 700;
+  margin: 12px 0 8px 0;
+  color: #1e293b;
+  font-size: 1em;
+}
+
+/* Destaque para texto em negrito */
+.chat-message-content strong,
+.chat-message-content b {
+  font-weight: 700;
+  color: #1e293b;
+}
+
+/* Estilo para listas no chat */
+.chat-message-content ul,
+.chat-message-content ol {
+  margin: 8px 0 8px 20px;
+  padding-left: 0;
+}
+
+.chat-message-content li {
+  margin: 4px 0;
+  color: #334155;
+}
+
+/* Estilo para links de vagas - mais atraente e destacado */
+.chat-vaga-link {
+  display: inline-block;
+  padding: 8px 14px;
+  background: linear-gradient(135deg, #0ea5e9 0%, #06b6d4 100%);
+  color: #ffffff !important;
+  text-decoration: none !important;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 0.85em;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  border: none;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(6, 182, 212, 0.35);
+  white-space: nowrap;
+  margin: 4px 2px;
+}
+
+.chat-vaga-link:hover {
+  background: linear-gradient(135deg, #06b6d4 0%, #0891b2 100%);
+  transform: translateY(-3px);
+  box-shadow: 0 6px 16px rgba(6, 182, 212, 0.45);
+}
+
+.chat-vaga-link:active {
+  transform: translateY(-1px);
+}
+
+/* Estilo para links internos que não são vagas */
+.chat-message-content a:not(.chat-vaga-link) {
+  color: #0ea5e9;
+  text-decoration: underline;
+  transition: color 0.2s ease;
+  font-weight: 500;
+}
+
+.chat-message-content a:not(.chat-vaga-link):hover {
+  color: #06b6d4;
+  text-decoration-thickness: 2px;
+}
+
+/* Destaque para citações */
+.chat-message-content blockquote {
+  border-left: 4px solid #0ea5e9;
+  padding-left: 12px;
+  margin: 12px 0;
+  color: #475569;
+  font-style: italic;
+  background-color: rgba(14, 165, 233, 0.08);
+  padding: 8px 12px;
+  border-radius: 4px;
+}
+
+/* Espaçamento para parágrafos */
+.chat-message-content p {
+  margin: 8px 0;
+  color: #334155;
+}
+
+/* Espaçamento entre elementos */
+.chat-message-content > * + * {
+  margin-top: 8px;
+}
+
+/* Código inline no chat */
+.chat-message-content code {
+  background-color: rgba(15, 23, 42, 0.1);
+  padding: 3px 7px;
+  border-radius: 4px;
+  font-family: 'Monaco', 'Courier New', monospace;
+  font-size: 0.9em;
+  color: #dc2626;
+  font-weight: 500;
+}
+
+/* Bloco de código */
+.chat-message-content pre {
+  background-color: #1e293b;
+  padding: 12px;
+  border-radius: 6px;
+  overflow-x: auto;
+  margin: 8px 0;
+  border: 1px solid #334155;
+}
+
+.chat-message-content pre code {
+  background-color: transparent;
+  padding: 0;
+  color: #e2e8f0;
+  font-weight: 400;
+}
+
+/* Separador de conteúdo */
+.chat-message-content hr {
+  border: none;
+  border-top: 2px solid #e2e8f0;
+  margin: 16px 0;
+}
+
+/* Melhor destaque para o link dentro das mensagens da IA */
+.bg-sky-50 .chat-vaga-link {
+  box-shadow: 0 3px 10px rgba(6, 182, 212, 0.4);
+}
+
+/* Links em mensagens do usuário */
+.bg-slate-900 .chat-vaga-link {
+  background: linear-gradient(135deg, #38bdf8 0%, #0ea5e9 100%);
+  box-shadow: 0 2px 8px rgba(56, 189, 248, 0.35);
+}
+
+.bg-slate-900 .chat-vaga-link:hover {
+  background: linear-gradient(135deg, #0ea5e9 0%, #06b6d4 100%);
+  box-shadow: 0 6px 16px rgba(56, 189, 248, 0.45);
+}
+

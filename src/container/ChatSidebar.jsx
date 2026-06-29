@@ -7,6 +7,7 @@ import { useEffect, useRef, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { MessageCircle, X, Bot, Loader2, Send, User } from 'lucide-react'
 import { converseWithChatbot } from '../services/vagasApi'
+import './ChatSidebar.css'
 
 const initialMessages = [
   {
@@ -79,8 +80,8 @@ function ChatSidebar() {
     // Procura padrões como "Vaga 5745662242", "ID: 5745662242" ou apenas o número
     // aceita números com 4+ dígitos para reduzir falsos positivos.
     return text.replace(/\b(?:vaga\b[:\s-]*|id\b[:\s-]*)?(\d{4,})\b/gi, (match, p1) => {
-      // Retorna uma âncora apontando para a rota interna
-      return `<a href="/vagas/${p1}" class="text-sky-600 underline chat-vaga-link">Vaga ${p1}</a>`
+      // Retorna uma âncora apontando para a rota interna com o texto "ver vaga"
+      return `<a href="/vagas/${p1}" class="chat-vaga-link">Ver Vaga</a>`
     })
   }
 
@@ -167,7 +168,7 @@ function ChatSidebar() {
                     )}
 
                     <div
-                      className={`max-w-[80%] rounded-3xl px-4 py-3 text-sm leading-6 shadow-sm ${
+                      className={`max-w-[80%] rounded-3xl px-4 py-3 text-sm leading-6 shadow-sm chat-message-content ${
                         message.role === 'user' ? 'bg-slate-900 text-white' : 'border border-sky-100 bg-sky-50 text-slate-800'
                       }`}
                       dangerouslySetInnerHTML={{__html:message.text}}
