@@ -4,6 +4,7 @@
 // - botão flutuante (mini launcher)
 // - overlay com painel que contém `AiChat` quando aberto
 import { useEffect, useRef, useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import { MessageCircle, X, Bot, Loader2, Send, User } from 'lucide-react'
 import { converseWithChatbot } from '../services/vagasApi'
 
@@ -24,6 +25,7 @@ function ChatSidebar() {
   const [messages, setMessages] = useState(initialMessages)
   const [isLoading, setIsLoading] = useState(false)
   const scrollRef = useRef(null)
+  const navigate = useNavigate()
 
   useEffect(() => {
     scrollRef.current?.scrollIntoView({ behavior: 'smooth' })
@@ -40,14 +42,16 @@ function ChatSidebar() {
     // Faz a conversa com o backend e envia apenas `{ input, history }`.
     converseWithChatbot(value, historyToSend)
       .then((reply) => {
+        // Normaliza resposta para string e converte possíveis IDs de vaga em links
         const replyText = typeof reply === 'string' ? reply : 'Recebi sua mensagem, mas não consegui interpretar a resposta.'
+        const replyHtml = linkifyVagaIds(replyText)
 
         setMessages((current) => [
           ...current,
           {
             id: crypto.randomUUID(),
             role: 'assistant',
-            text: replyText,
+            text: replyHtml,
           },
         ])
       })
@@ -64,6 +68,37 @@ function ChatSidebar() {
       .finally(() => {
         setIsLoading(false)
       })
+  }
+
+  // Helper: converte padrões de ID de vaga em links para a rota interna `/vagas/:id`.
+  // Comentários: usar regex simples aqui; se o backend passar a retornar entidades
+  // estruturadas, trocar por renderização segura baseada em objetos.
+  function linkifyVagaIds(text) {
+    if (!text) return text
+
+    // Procura padrões como "Vaga 5745662242", "ID: 5745662242" ou apenas o número
+    // aceita números com 4+ dígitos para reduzir falsos positivos.
+    return text.replace(/\b(?:vaga\b[:\s-]*|id\b[:\s-]*)?(\d{4,})\b/gi, (match, p1) => {
+      // Retorna uma âncora apontando para a rota interna
+      return `<a href="/vagas/${p1}" class="text-sky-600 underline chat-vaga-link">Vaga ${p1}</a>`
+    })
+  }
+
+  // Intercepta cliques em links dentro do painel de mensagens para usar navegação SPA
+  function handleMessageClick(e) {
+    const target = e.target
+    // closest pode não existir em alguns ambientes, protegemos a chamada
+    const anchor = target?.closest ? target.closest('a') : null
+    if (anchor) {
+      const href = anchor.getAttribute('href')
+      if (href && href.startsWith('/vagas')) {
+        e.preventDefault()
+        // navega via react-router sem reload
+        navigate(href)
+        // opcional: fechar o painel para expor a página de detalhe
+        setAberto(false)
+      }
+    }
   }
 
   function handleSubmit(e) {

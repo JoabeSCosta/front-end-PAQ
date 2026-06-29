@@ -12,11 +12,15 @@ import { ArrowRight, Building2, MapPin } from 'lucide-react'
 
 function JobCard({ id, title, company, location, description }) {
   return (
-    <div className='group relative overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm transition-all duration-300 hover:-translate-y-1 hover:border-blue-200 hover:shadow-xl'>
+    // Tornamos o cartão um container flex em coluna para controlar o layout do
+    // conteúdo e do rodapé. Assim conseguimos fixar o rodapé na parte inferior
+    // e garantir que o botão não mude de posição mesmo com descrições maiores.
+    <div className='group relative flex h-full flex-col overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm transition-all duration-300 hover:-translate-y-1 hover:border-blue-200 hover:shadow-xl'>
       {/* Barra de destaque superior */}
       <div className='absolute inset-x-0 top-0 h-1 bg-linear-to-r from-blue-500 via-sky-400 to-cyan-300' />
 
-      <div className='p-5'>
+      {/* Conteúdo principal: cresce para preencher o cartão */}
+      <div className='p-5 flex-1'>
         {/* Cabeçalho: ícone + cargo */}
         <div className='flex items-start justify-between gap-4'>
           <div className='flex h-12 w-12 items-center justify-center rounded-xl bg-slate-100 ring-1 ring-slate-200 transition-colors group-hover:bg-blue-50 group-hover:ring-blue-100'>
@@ -50,11 +54,13 @@ function JobCard({ id, title, company, location, description }) {
         </div>
       </div>
 
-      {/* Rodapé com link para a página de detalhes */}
+      {/* Rodapé fixo: tem altura consistente e botão com altura fixa */}
       <div className='border-t border-slate-100 bg-slate-50/80 p-4'>
         <Link
           to={`/vagas/${id}`}
-          className='inline-flex w-full items-center justify-center gap-2 rounded-xl bg-slate-900 px-4 py-3 text-sm font-semibold text-white transition-all hover:bg-blue-600'
+          // Definimos altura fixa (`h-12`) para o botão e removemos padding vertical
+          // variável para evitar que ele mude de tamanho por causa do conteúdo.
+          className='inline-flex h-12 w-full items-center justify-center gap-2 rounded-xl bg-slate-900 px-4 text-sm font-semibold text-white transition-all hover:bg-blue-600'
         >
           Ver detalhes
           <ArrowRight className='h-4 w-4 transition-transform group-hover:translate-x-0.5' />
