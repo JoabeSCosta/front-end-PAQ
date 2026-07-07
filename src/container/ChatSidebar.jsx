@@ -45,7 +45,6 @@ function ChatSidebar() {
       .then((reply) => {
         // Normaliza resposta para string e converte possíveis IDs de vaga em links
         const replyText = typeof reply === 'string' ? reply : 'Recebi sua mensagem, mas não consegui interpretar a resposta.'
-        const replyHtml = linkifyVagaIds(replyText)
 
         setMessages((current) => [
           ...current,
