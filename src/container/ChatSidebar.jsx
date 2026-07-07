@@ -4,7 +4,6 @@
 // - botão flutuante (mini launcher)
 // - overlay com painel que contém `AiChat` quando aberto
 import { useEffect, useRef, useState } from 'react'
-import { useNavigate } from 'react-router-dom'
 import { MessageCircle, X, Bot, Loader2, Send, User } from 'lucide-react'
 import { converseWithChatbot } from '../services/vagasApi'
 import './ChatSidebar.css'
@@ -26,7 +25,6 @@ function ChatSidebar() {
   const [messages, setMessages] = useState(initialMessages)
   const [isLoading, setIsLoading] = useState(false)
   const scrollRef = useRef(null)
-  const navigate = useNavigate()
 
   useEffect(() => {
     scrollRef.current?.scrollIntoView({ behavior: 'smooth' })
@@ -43,15 +41,18 @@ function ChatSidebar() {
     // Faz a conversa com o backend e envia apenas `{ input, history }`.
     converseWithChatbot(value, historyToSend)
       .then((reply) => {
-        // Normaliza resposta para string e converte possíveis IDs de vaga em links
-        const replyText = typeof reply === 'string' ? reply : 'Recebi sua mensagem, mas não consegui interpretar a resposta.'
+        // Normaliza a resposta para texto simples antes de exibir no chat.
+        const replyText =
+          typeof reply === 'string'
+            ? reply
+            : 'Recebi sua mensagem, mas não consegui interpretar a resposta.'
 
         setMessages((current) => [
           ...current,
           {
             id: crypto.randomUUID(),
             role: 'assistant',
-            text: replyHtml,
+            text: replyText,
           },
         ])
       })
@@ -68,23 +69,6 @@ function ChatSidebar() {
       .finally(() => {
         setIsLoading(false)
       })
-  }
-
-  // Intercepta cliques em links dentro do painel de mensagens para usar navegação SPA
-  function handleMessageClick(e) {
-    const target = e.target
-    // closest pode não existir em alguns ambientes, protegemos a chamada
-    const anchor = target?.closest ? target.closest('a') : null
-    if (anchor) {
-      const href = anchor.getAttribute('href')
-      if (href && href.startsWith('/vagas')) {
-        e.preventDefault()
-        // navega via react-router sem reload
-        navigate(href)
-        // opcional: fechar o painel para expor a página de detalhe
-        setAberto(false)
-      }
-    }
   }
 
   function handleSubmit(e) {
@@ -156,8 +140,8 @@ function ChatSidebar() {
                       className={`max-w-[80%] rounded-3xl px-4 py-3 text-sm leading-6 shadow-sm chat-message-content ${
                         message.role === 'user' ? 'bg-slate-900 text-white' : 'border border-sky-100 bg-sky-50 text-slate-800'
                       }`}
-                      dangerouslySetInnerHTML={{__html:message.text}}
                     >
+                      {message.text}
                     </div>
 
                     {message.role === 'user' && (
