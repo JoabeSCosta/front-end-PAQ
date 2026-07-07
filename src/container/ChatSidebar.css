@@ -38,6 +38,47 @@
   color: #334155;
 }
 
+/* Estilo para links de vagas - mais atraente e destacado */
+.chat-vaga-link {
+  display: inline-block;
+  padding: 8px 14px;
+  background: linear-gradient(135deg, #0ea5e9 0%, #06b6d4 100%);
+  color: #ffffff !important;
+  text-decoration: none !important;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 0.85em;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  border: none;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(6, 182, 212, 0.35);
+  white-space: nowrap;
+  margin: 4px 2px;
+}
+
+.chat-vaga-link:hover {
+  background: linear-gradient(135deg, #06b6d4 0%, #0891b2 100%);
+  transform: translateY(-3px);
+  box-shadow: 0 6px 16px rgba(6, 182, 212, 0.45);
+}
+
+.chat-vaga-link:active {
+  transform: translateY(-1px);
+}
+
+/* Estilo para links internos que não são vagas */
+.chat-message-content a:not(.chat-vaga-link) {
+  color: #0ea5e9;
+  text-decoration: underline;
+  transition: color 0.2s ease;
+  font-weight: 500;
+}
+
+.chat-message-content a:not(.chat-vaga-link):hover {
+  color: #06b6d4;
+  text-decoration-thickness: 2px;
+}
+
 /* Destaque para citações */
 .chat-message-content blockquote {
   border-left: 4px solid #0ea5e9;
@@ -94,5 +135,21 @@
   border: none;
   border-top: 2px solid #e2e8f0;
   margin: 16px 0;
+}
+
+/* Melhor destaque para o link dentro das mensagens da IA */
+.bg-sky-50 .chat-vaga-link {
+  box-shadow: 0 3px 10px rgba(6, 182, 212, 0.4);
+}
+
+/* Links em mensagens do usuário */
+.bg-slate-900 .chat-vaga-link {
+  background: linear-gradient(135deg, #38bdf8 0%, #0ea5e9 100%);
+  box-shadow: 0 2px 8px rgba(56, 189, 248, 0.35);
+}
+
+.bg-slate-900 .chat-vaga-link:hover {
+  background: linear-gradient(135deg, #0ea5e9 0%, #06b6d4 100%);
+  box-shadow: 0 6px 16px rgba(56, 189, 248, 0.45);
 }
 
