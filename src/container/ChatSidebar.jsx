@@ -71,20 +71,6 @@ function ChatSidebar() {
       })
   }
 
-  // Helper: converte padrões de ID de vaga em links para a rota interna `/vagas/:id`.
-  // Comentários: usar regex simples aqui; se o backend passar a retornar entidades
-  // estruturadas, trocar por renderização segura baseada em objetos.
-  function linkifyVagaIds(text) {
-    if (!text) return text
-
-    // Procura padrões como "Vaga 5745662242", "ID: 5745662242" ou apenas o número
-    // aceita números com 4+ dígitos para reduzir falsos positivos.
-    return text.replace(/\b(?:vaga\b[:\s-]*|id\b[:\s-]*)?(\d{4,})\b/gi, (match, p1) => {
-      // Retorna uma âncora apontando para a rota interna com o texto "ver vaga"
-      return `<a href="/vagas/${p1}" class="chat-vaga-link">Ver Vaga</a>`
-    })
-  }
-
   // Intercepta cliques em links dentro do painel de mensagens para usar navegação SPA
   function handleMessageClick(e) {
     const target = e.target

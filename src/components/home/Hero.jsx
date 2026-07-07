@@ -2,7 +2,7 @@ import { Briefcase, GraduationCap, Rocket, Search } from 'lucide-react'
 
 function Hero() {
   return (
-    <section className='relative overflow-hidden bg-linear-to-b from-slate-50 to-slate-100 py-16 md:py-24'>
+    <section id='home' className='relative overflow-hidden bg-linear-to-b from-slate-50 to-slate-100 py-16 md:py-24'>
       {/* Decoração de fundo para dar profundidade sem poluir a leitura */}
       <div className='pointer-events-none absolute inset-0 -z-10 overflow-hidden'>
         <div className='absolute -left-20 -top-20 h-72 w-72 rounded-full bg-sky-200/30 blur-3xl' />

@@ -1,6 +1,6 @@
 function Footer() {
   return (
-    <footer className="bg-slate-900 text-slate-100">
+    <footer id='footer' className="bg-slate-900 text-slate-100">
       <div className="mx-auto grid max-w-6xl gap-8 px-6 py-10 sm:grid-cols-2 lg:grid-cols-3">
         <div>
           <h2 className="text-lg font-bold">PAQ Jobs</h2>

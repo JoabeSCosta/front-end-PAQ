@@ -17,26 +17,18 @@ function Header() {
       */}
       <nav className='flex-1 flex justify-center'>
         <ul className='flex items-center gap-6'>
-          <li>
-            <Link to='/' className='text-sm font-medium text-slate-200 hover:text-white'>
+          <a href='#home' className='text-sm font-medium text-slate-200 hover:text-white'>  
               Home
-            </Link>
-          </li>
-          <li>
-            <Link to='/sobre' className='text-sm font-medium text-slate-200 hover:text-white'>
+          </a>
+          <a href='#como-funciona' className='text-sm font-medium text-slate-200 hover:text-white'>
               Sobre
-            </Link>
-          </li>
-          <li>
-            <Link to='/vagas' className='text-sm font-medium text-slate-200 hover:text-white'>
+          </a>
+          <a href='#vagas' className='text-sm font-medium text-slate-200 hover:text-white'>
               Vagas
-            </Link>
-          </li>
-          <li>
-            <Link to='/contatenos' className='text-sm font-medium text-slate-200 hover:text-white'>
+          </a>
+          <a href='#footer' className='text-sm font-medium text-slate-200 hover:text-white'>
               Contate-nos
-            </Link>
-          </li>
+          </a>
         </ul>
       </nav>
 
